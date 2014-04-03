@@ -1,27 +1,23 @@
 == README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+User Stories 
 
-Things you may want to cover:
+As a shopper I want to set up a username and password so i can save my shopping lists
 
-* Ruby version
+As a shopper want to enter my height weight gender age activity levels, and weight loss/gain goals so that i can see which levels of macronutrients I should be consuming.
 
-* System dependencies
+I want to be able to see a list of meals that will help me meet my goals so that i can have fresh ideas on what to eat.
 
-* Configuration
+I want the amount of ingredients in each meal to be taylored to my recommeneded nutritional levels so that i can meet my goals.
 
-* Database creation
+As a shopper I want to be able to save shopping lists that I like so that i can see them in the future.
 
-* Database initialization
+As a shopper i want to see recipe instructions so that i dont have to search for them online.
 
-* How to run the test suite
+I want the amount of ingredients in each meal to be taylored to my recommeneded nutritional levels so that i can meet my goals. 
 
-* Services (job queues, cache servers, search engines, etc.)
+As a shopper i want to be able to email my shopping lists to myself, so i can have them readily available at the grocery store.
 
-* Deployment instructions
-
-* ...
 
 
 Please feel free to use a different markup language if you do not plan to run
