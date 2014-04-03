@@ -19,7 +19,6 @@ development:
   encoding: unicode
   database: fresh_list_development
   pool: 5
-  username: fresh_list
   password:
 
   # Connect on a TCP socket. Omitted by default since the client uses a
@@ -48,7 +47,6 @@ test:
   encoding: unicode
   database: fresh_list_test
   pool: 5
-  username: fresh_list
   password:
 
 production:
@@ -56,5 +54,4 @@ production:
   encoding: unicode
   database: fresh_list_production
   pool: 5
-  username: fresh_list
   password:
