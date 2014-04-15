@@ -5,7 +5,8 @@
 <p><%= "#{@user.activity} #{@user.goal}" %></p>
 <p><%= link_to 'Edit', edit_user_path(current_user) %></p>
 
-<p>Based on your biometric information activity levels and goals you should be consuming the following daily macronutrient values</p>
+<p><%= "Based on your biometric information, activity levels, and goals you should be consuming about #{
+@user.goal_multiplier.round(0)} calories per day, and the following daily macronutrient values:" %></p>
 
 <table>
   <tr>
