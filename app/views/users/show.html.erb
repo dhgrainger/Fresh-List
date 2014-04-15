@@ -1,0 +1,24 @@
+<h1><%= "Hi, #{@user.username}" %></h1>
+<h2>Your Stats</h2>
+<p><%= "Age: #{@user.age}, Gender: #{@user.gender}, Height: #{@user.height} Inches, Weight: #{@user.weight} LBs" %>
+<h2>Your Activity and Goals</h2>
+<p><%= "#{@user.activity} #{@user.goal}" %></p>
+<p><%= link_to 'Edit', edit_user_path(current_user) %></p>
+
+<p>Based on your biometric information activity levels and goals you should be consuming the following daily macronutrient values</p>
+
+<table>
+  <tr>
+    <th colspan = 2>Carbohydrates</th><th colspan = 2>Proteins</th><th colspan = 2>Fats</th>
+  </tr>
+  <tr>
+    <th>Calories</th><th>Grams</th><th>Calories</th><th>Grams</th><th>Calories</th><th>Grams</th>
+  </tr>
+  <tr>
+    <td><%= @user.carbcals %></td><td><%= @user.carbgrams %></td><td><%= @user.proteincals %></td><td><%= @user.proteingrams %></td><td><%= @user.fatcals %></td><td><%= @user.fatgrams %></td>
+  </tr>
+</table>
+
+
+
+

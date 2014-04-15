@@ -1,0 +1,17 @@
+<h1>Edit Your Info</h1>
+
+<%= simple_form_for @user do |f| %>
+
+  <div class="form-inputs">
+    <%= f.input :username %>
+    <%= f.input :age, collection: 18..80 %>
+    <%= f.input :height, collection: 48..84 %>
+    <%= f.input :weight, collection: 75..300 %>
+    <%= f.input :activity, collection: ["Sedentary", "Low Activity", "Active", "Very Active"] %>
+    <%= f.input :goal, collection: ["Lose Weight", "Maintain", "Gain Muscle"] %>
+  </div>
+
+  <div class="form-actions">
+    <%= f.button :submit, "Edit" %>
+  </div>
+<% end %>
