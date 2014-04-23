@@ -7,15 +7,18 @@ class Recipe < ActiveRecord::Base
   validates :fats, presence: true
   validates :url, presence: true
 
+  has_many :user_recipes
 
   class << self
     def search(search)
-      results = all.where("name iLike '%#{search}%'")
+
+      results = all.where('to_tsvector(name) @@ plainto_tsquery(?)', search)
 
       # if the database doesnt include the search term we are going to query the yummly api
       if results.map {|x| x[:name].downcase.include? search}.include? true
         return results
       else
+
       # we need to make sure the data is in the right format for the search
         if search.include? ' '
           params = search.split(' ').join('+')
@@ -24,7 +27,7 @@ class Recipe < ActiveRecord::Base
         end
 
       # this next block is going to search recipes and return 10 recipes that match our search
-        source = 'http://api.yummly.com/v1/api/recipes?_app_id=76673592&_app_key=17ee3cd3288f06af85bc442278910238&q=' + params + '&requirePictures=true'
+        source = 'http://api.yummly.com/v1/api/recipes?_app_id=d788fb36&_app_key=dee9780de91a8cab61adc0df5a70a3d8&q=' + params + '&requirePictures=true'
         resp = Net::HTTP.get_response(URI.parse(source))
         data = resp.body
         yummly = JSON.parse(data)
@@ -33,7 +36,7 @@ class Recipe < ActiveRecord::Base
         yummly["matches"].each do |yum|
 
           yumId = yum["id"]
-          source = 'http://api.yummly.com/v1/api/recipe/' + yumId + '?_app_id=76673592&_app_key=17ee3cd3288f06af85bc442278910238&'
+          source = 'http://api.yummly.com/v1/api/recipe/' + yumId + '?_app_id=d788fb36&_app_key=dee9780de91a8cab61adc0df5a70a3d8&'
           resp = Net::HTTP.get_response(URI.parse(source))
           data = resp.body
           info = JSON.parse(data)
@@ -58,7 +61,7 @@ class Recipe < ActiveRecord::Base
           end
           recipe.save
         end
-        results = all.where("name iLike '%#{search}%'")
+         results = all.where('to_tsvector(name) @@ plainto_tsquery(?)', search)
         results
       end
     end

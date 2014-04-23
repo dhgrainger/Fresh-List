@@ -13,6 +13,7 @@ class User < ActiveRecord::Base
   validates :age, presence: true
 
   has_many :preferences
+  has_many :user_recipes
 
   def bmr
     if gender == "male"
