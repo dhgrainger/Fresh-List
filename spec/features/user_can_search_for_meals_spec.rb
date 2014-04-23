@@ -10,7 +10,7 @@ feature "User can search on meals based on their preferences", %q{
       user = FactoryGirl.build(:user)
 
       sign_in_as(user)
-      save_and_open_page
+
 
       fill_in 'Name', with: 'chicken picatta, eggs, bacon'
       click_on('search')

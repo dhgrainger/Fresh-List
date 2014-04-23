@@ -1,8 +1,12 @@
 FreshList::Application.routes.draw do
 
   devise_for :users
-  resources :users
-root to: "users#show"
+  resources :users do
+    resources :preferences
+  end
+  resources :recipes
+  root to: "users#show"
+
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 

@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
   def show
     @user = current_user
+    @preferences = Preference.new
   end
 
   def edit
