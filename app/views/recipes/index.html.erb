@@ -1,17 +1,23 @@
 <h2>Recipes</h2>
 
 <div class = "grid-container">
+
   <% if @recipes %>
-    <% @recipes.each do |preference|%>
-      <% preference.each do |recipe| %>
-        <div class = "grid-4">
-          <h6><a href = <%= recipe[:url] %> ><%= recipe[:name] %></a></h3>
-          <img src = <%= recipe[:image] %> alt='no image'>
-          <li>Fats: <%= recipe[:fats] %> grams</li>
-          <li>Protein: <%= recipe[:protein] %> grams</li>
-          <li>Carbs: <%= recipe[:carbs] %> grams</li>
-        </div>
+    <%= form_tag update_multiple_recipes_path, method: :patch do %>
+      <% @recipes.each do |preference|%>
+        <% preference.each do |recipe| %>
+          <div class = "grid-4">
+            <h6><a href = <%= recipe[:url] %> ><%= recipe[:name] %></a></h3>
+            <img src = <%= recipe[:image] %> alt='no image'>
+            <li>Fats: <%= recipe[:fats] %> grams</li>
+            <li>Protein: <%= recipe[:protein] %> grams</li>
+            <li>Carbs: <%= recipe[:carbs] %> grams</li>
+            <p class = "recipe"><%= check_box_tag "ids[]", recipe.id %></p>
+          </div>
+        <% end %>
       <% end %>
+      <%= submit_tag "Keep Recipes" %>
     <% end %>
   <% end %>
 </div>
+

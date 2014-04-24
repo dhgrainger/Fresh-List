@@ -14,6 +14,7 @@ class User < ActiveRecord::Base
 
   has_many :preferences
   has_many :user_recipes
+  has_many :recipes, through: :user_recipes, source: :recipe
 
   def bmr
     if gender == "male"
@@ -71,6 +72,25 @@ class User < ActiveRecord::Base
 
   def fatgrams
     grams = (self.fatcals / 9.0).round(0)
+  end
+
+  def weekly_recipes
+    weekly_recipes = self.recipes.uniq
+
+    total_fats_grams = weekly_recipes.map {|x| x[:fats]}.inject(:+)
+    total_protein_grams = weekly_recipes.map {|x| x[:protein]}.inject(:+)
+    total_carbs_grams = weekly_recipes.map {|x| x[:carbs]}.inject(:+)
+
+    fat_diff = (self.fatgrams * 7) - total_fats_grams
+    protein_diff = (self.proteingrams * 7) - total_protein_grams
+    carbs_diff = (self.carbgrams * 7) - total_carbs_grams
+
+    if fat_diff > 0 && protein_diff > 0 && carbs_diff > 0
+      until fat_diff <= 0 && protein_diff <= 0 && carbs_diff <= 0
+
+      end
+    end
+    {fat_diff: fat_diff, protein_diff: protein_diff, carbs_diff: carbs_diff}
   end
 end
 

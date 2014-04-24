@@ -14,5 +14,6 @@ describe User do
   it {should validate_presence_of(:activity)}
   it {should validate_presence_of(:goal)}
   it {should validate_presence_of(:age)}
-
+  it { should have_many(:preferences) }
+  it { should have_many(:user_recipes) }
 end

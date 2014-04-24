@@ -8,7 +8,7 @@ class Recipe < ActiveRecord::Base
   validates :url, presence: true
 
   has_many :user_recipes
-
+  has_many :users, through: :user_recipes, source: :user
   class << self
     def search(search)
 

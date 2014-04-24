@@ -3,9 +3,20 @@ FreshList::Application.routes.draw do
   devise_for :users
   resources :users do
     resources :preferences
+    resources :recipes
   end
-  resources :recipes
+
+  resources :recipes do
+    collection do
+        patch 'update_multiple'
+    end
+  end
+
   root to: "users#show"
+
+
+
+
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
