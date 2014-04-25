@@ -1,3 +1,4 @@
+require 'net/http'
 class Recipe < ActiveRecord::Base
 
   validates :name, presence: true, uniqueness: {case_sensistive: false}
