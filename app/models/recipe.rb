@@ -6,7 +6,9 @@ class Recipe < ActiveRecord::Base
   validates :protein, presence: true
   validates :fats, presence: true
   validates :url, presence: true
-
+  # validates recpie,          uniqueness: {
+  #                               scope: :user_id,
+  #                               message: "That recpie already exists" }
   has_many :user_recipes
   has_many :users, through: :user_recipes, source: :user
   class << self

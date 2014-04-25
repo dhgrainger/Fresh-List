@@ -74,24 +74,155 @@ class User < ActiveRecord::Base
     grams = (self.fatcals / 9.0).round(0)
   end
 
+  def find
+    ids = self.recipes.pluck(:id)
+    array = []
+    ids.each do |x|
+      array << Recipe.where('id = x')
+    end
+    binding.pry
+    array
+  end
+
   def weekly_recipes
-    weekly_recipes = self.recipes.uniq
+    your_recipes = self.recipes
+    if your_recipes.empty?
+      total_fats_grams = 0
+      total_protein_grams = 0
+      total_carbs_grams = 0
+    else
+      total_fats_grams = your_recipes.pluck(:fats).inject(:+)
+      total_protein_grams = your_recipes.pluck(:protein).inject(:+)
+      total_carbs_grams = your_recipes.pluck(:carbs).inject(:+)
+    end
+    # {total_carbs_grams: total_carbs_grams, total_fats_grams: total_fats_grams,
+    #  total_protein_grams: total_protein_grams}
 
-    total_fats_grams = weekly_recipes.map {|x| x[:fats]}.inject(:+)
-    total_protein_grams = weekly_recipes.map {|x| x[:protein]}.inject(:+)
-    total_carbs_grams = weekly_recipes.map {|x| x[:carbs]}.inject(:+)
-
-    fat_diff = (self.fatgrams * 7) - total_fats_grams
+    fats_diff = (self.fatgrams * 7) - total_fats_grams
     protein_diff = (self.proteingrams * 7) - total_protein_grams
     carbs_diff = (self.carbgrams * 7) - total_carbs_grams
 
-    if fat_diff > 0 && protein_diff > 0 && carbs_diff > 0
-      until fat_diff <= 0 && protein_diff <= 0 && carbs_diff <= 0
-
-      end
+    if carbs_diff > 0
+      self.recipes << Recipe.where('carbs > protein AND protein > fats').limit()
+      weekly_recipes
     end
-    {fat_diff: fat_diff, protein_diff: protein_diff, carbs_diff: carbs_diff}
+
+    if protein_diff > 0
+      self.recipes << Recipe.where('protein > fats AND fats > carbs').limit(3)
+      weekly_recipes
+    end
+
+    if fats_diff > 0
+      self.recipes << Recipe.where('fats > protein AND fats > carbs').limit(3)
+      weekly_recipes
+    end
+    {carbs_diff: carbs_diff, protein_diff: protein_diff, fats_diff: fats_diff}
   end
+    #if none of the values have been met
+  #   if fats_diff > 0 && protein_diff > 0 && carbs_diff > 0
+
+  #     # Need fat the most followed by protein then carbs
+  #     if fats_diff > protein_diff && protein_diff > carbs_diff
+
+  #       self.recipes << Recipe.where('fats > protein AND protein > carbs').limit
+  #       (2)
+  #       weekly_recipes
+  #     end
+
+  #     #Need fat the most followed by carbs then protein
+  #     if fats_diff > carbs_diff && carbs_diff > protein_diff
+
+  #       self.recipes << Recipe.where('fats > carbs AND carbs > protein').limit(2)
+  #       weekly_recipes
+  #     end
+
+  #     #Need protein the most followed by carbs then fats
+  #     if protein_diff > carbs_diff && carbs_diff > fats_diff
+
+  #       self.recipes << Recipe.where('protein > carbs AND carbs > fats').limit(2)
+  #       weekly_recipes
+  #     end
+
+  #     #Need protein the most followed by fats then carbs
+  #     if protein_diff > fats_diff && fats_diff > carbs_diff
+
+  #       self.recipes << Recipe.where('protein > fats AND fats > carbs').limit(2)
+  #       weekly_recipes
+  #     end
+
+  #     #Need carbs the most followed by fats then protein
+  #     if carbs_diff > fats_diff && fats_diff > protein_diff
+
+  #       self.recipes << Recipe.where('carbs > fats AND fats > protein').limit(2)
+  #       weekly_recipes
+  #     end
+
+  #     #Need carbs the most followed by protein then carbs
+  #     if carbs_diff > protein_diff && protein_diff > fats_diff
+
+  #       self.recipes << Recipe.where('carbs > protein AND protein > fats').limit(2)
+  #       weekly_recipes
+  #     end
+  #   end
+
+  #   # if only the protein value has been met
+  #   if fats_diff > 0 && carbs_diff > 0 && protein_diff <= 0
+  #     if carbs_diff > fats_diff
+  #       self.recipes << Recipe.where('fats > carbs AND protein < 1').limit(2)
+  #       weekly_recipes
+  #     end
+
+  #     if carbs_diff > fats_diff
+  #       self.recipes << Recipe.where('carbs > fats AND protein < 1').limit(2)
+  #       weekly_recipes
+  #     end
+  #   end
+  #   #if only the carbs value has been met
+  #   if fats_diff > 0 && protein_diff > 0 && carbs_diff <= 0
+  #     if fats_diff > protein_diff
+  #       self.recipes << Recipe.where('fats > protein AND carbs < 1').limit(2)
+  #       weekly_recipes
+  #     end
+
+  #     if protein_diff > fats_diff
+  #       self.recipes << Recipe.where('protein > fats AND carbs < 1').limit(2)
+  #       weekly_recipes
+  #     end
+  #   end
+
+  #   # if only the fats value has been met
+  #   if protein_diff > 0 && carbs_diff > 0 && fats_diff <= 0
+  #     if protein_diff > carbs_diff
+  #       self.recipes << Recipe.where('protein > carbs AND fats < 1').limit(2)
+
+  #       weekly_recipes
+  #     end
+
+  #     if carbs_diff > protein_diff
+  #       self.recipes << Recipe.where('carbs > protein AND fats < 1').limit(2)
+  #       weekly_recipes
+  #     end
+  #   end
+
+  #   # if the carbs and protein values have been met
+  #   if fats_diff > 0 && carbs_diff <= 0 && protein_diff <= 0
+  #     self.recipes << Recipe.where('fats > 30 AND protein < 1 AND fats < 1').limit(2)
+  #     weekly_recipes
+  #   end
+
+  #   # if the carbs and fats values have been met
+  #   if protein_diff > 0 && carbs_diff <= 0 && fats_diff <= 0
+  #     self.recipes << Recipe.where('protein > 30 AND carbs < 1 AND fats < 1').limit(2)
+  #     weekly_recipes
+  #   end
+
+  #   #if the fats and proteins values have been met
+  #   if carbs_diff > 0 && fats_diff <= 0 && protein_diff <= 0
+  #     self.recipes << Recipe.where('carbs > 30 AND protein < 1 AND fats < 1').limit(2)
+  #     weekly_recipes
+  #   end
+  #  {carbs_diff: carbs_diff, protein_diff: protein_diff, fats_diff: fats_diff}
+  # end
 end
 
 
