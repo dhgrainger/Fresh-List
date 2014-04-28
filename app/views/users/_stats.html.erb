@@ -1,0 +1,10 @@
+<table>
+      <caption>Your Stats</caption>
+      <tr><td>Age:</td><td><%= @user.age %></td></tr>
+      <tr><td>Gender:</td><td><%= @user.gender %></td></tr>
+      <tr><td>Height:</td><td><%= "#{@user.height} inches"%></td></tr>
+      <tr><td>Weight:</td><td><%= "#{@user.weight} LBs" %></td></tr>
+      <tr><td>Activity:</td><td><%= @user.activity %></td></tr>
+      <tr><td>Goals:</td><td><%= @user.goal %></td></tr>
+      <tr><td colspan = 2><%= link_to 'Edit', edit_user_path(current_user) %></td></tr>
+    <table>

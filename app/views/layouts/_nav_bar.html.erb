@@ -1,0 +1,40 @@
+<nav class="top-bar">
+  <!-- Title -->
+  <ul class="title-area">
+    <li class="toggle-topbar menu-icon"><a href="#">Menu</a></li>
+  </ul>
+
+  <!-- Top Bar Section -->
+
+<section class="top-bar-section">
+
+    <!-- Top Bar Left Nav Elements -->
+    <ul class="left">
+      <% if user_signed_in? %>
+      <li>
+        <%= link_to "Profile", user_path(current_user) %>
+      </li>
+      <% end %>
+      <li>
+          <%= link_to "Share New Tutorial", recipes_path, class: 'button' %>
+      </li>
+      <!-- </div> -->
+    </ul>
+
+    <!-- Top Bar Right Nav Elements -->]
+    <ul class="right">
+      <!-- Divider -->
+      <li class="divider"></li>
+
+      <!-- Button -->
+      <% if user_signed_in? %>
+        <li class="show-for-large-up">
+        <%= link_to "Sign Out", destroy_user_session_path, method: :delete %>
+      </li>
+      <% else %>
+      <li class="show-for-large-up">
+        <%= link_to "Log in", new_user_session_path %>
+      </li>
+      <% end %>
+    </ul>
+  </section></nav>

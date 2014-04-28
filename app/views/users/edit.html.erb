@@ -1,16 +1,24 @@
-<h1>Edit Your Info</h1>
+<div class = "form-page">
 
-<%= simple_form_for @user do |f| %>
+  <h1>Edit Your Info</h1>
 
-  <div class="form-inputs">
-    <%= f.input :username %>
-    <%= f.input :age, collection: 18..80 %>
-    <%= f.input :weight, collection: 75..300 %>
-    <%= f.input :activity, collection: ["Sedentary", "Low Activity", "Active", "Very Active"] %>
-    <%= f.input :goal, collection: ["Lose Weight", "Maintain", "Gain Muscle"] %>
+  <div class = "row">
+    <div class = "large-centered large-8 columns">
+    <%= simple_form_for @user do |f| %>
+
+      <div class="form-inputs">
+
+        <%= f.input :username %>
+        <%= f.input :age, collection: 18..80 %>
+        <%= f.input :weight, collection: 75..300 %>
+        <%= f.input :activity, collection: ["Sedentary", "Low Activity", "Active", "Very Active"] %>
+        <%= f.input :goal, collection: ["Lose Weight", "Maintain", "Gain Muscle"] %>
+      </div>
+
+      <div class="form-actions">
+        <%= f.button :submit, "Edit" %>
+      </div>
+    <% end %>
+    </div>
   </div>
-
-  <div class="form-actions">
-    <%= f.button :submit, "Edit" %>
-  </div>
-<% end %>
+</div>

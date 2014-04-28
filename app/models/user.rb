@@ -84,7 +84,14 @@ class User < ActiveRecord::Base
     array
   end
 
-  def weekly_recipes
+  def weekly_requirements
+    fats = (self.fatgrams * 7)
+    protein = (self.proteingrams * 7)
+    carbs = (self.carbgrams * 7)
+    {fats: fats, protein: protein, carbs: carbs}
+  end
+
+  def recipes_total
     your_recipes = self.recipes
     if your_recipes.empty?
       total_fats_grams = 0
@@ -95,28 +102,38 @@ class User < ActiveRecord::Base
       total_protein_grams = your_recipes.pluck(:protein).inject(:+)
       total_carbs_grams = your_recipes.pluck(:carbs).inject(:+)
     end
-    # {total_carbs_grams: total_carbs_grams, total_fats_grams: total_fats_grams,
-    #  total_protein_grams: total_protein_grams}
+    {fats: total_fats_grams, protein: total_protein_grams, carbs: total_carbs_grams}
+  end
 
-    fats_diff = (self.fatgrams * 7) - total_fats_grams
-    protein_diff = (self.proteingrams * 7) - total_protein_grams
-    carbs_diff = (self.carbgrams * 7) - total_carbs_grams
+  def difference
+    fats_diff = self.weekly_requirements[:fats] - recipes_total[:fats]
+    protein_diff = self.weekly_requirements[:protein] - recipes_total[:protein]
+    carbs_diff = self.weekly_requirements[:carbs] - recipes_total[:carbs]
+    {fats: fats_diff, protein: protein_diff, carbs: carbs_diff}
+  end
 
-    if carbs_diff > 0
-      self.recipes << Recipe.where('carbs > protein AND protein > fats').limit()
-      weekly_recipes
+  def weekly_recipes(previous_count = nil)
+    if !(recipes.count == previous_count)
+      previous_count = recipes.count
+      if self.difference[:carbs] > 0
+        new_recipe = Recipe.where('carbs > protein AND protein > fats').shuffle[0]
+        self.recipes << new_recipe if !self.recipes.include?(new_recipe)
+        weekly_recipes(previous_count)
+      end
+
+      if self.difference[:protein] > 0
+        new_recipe = Recipe.where('protein > fats AND protein > carbs').shuffle[0]
+        self.recipes << new_recipe if !self.recipes.include?(new_recipe)
+        weekly_recipes(previous_count)
+      end
+
+      if self.difference[:fats] > 0
+        new_recipe = Recipe.where('fats > protein AND fats > carbs').shuffle[0]
+        self.recipes << new_recipe if !self.recipes.include?(new_recipe)
+        weekly_recipes(previous_count)
+      end
     end
-
-    if protein_diff > 0
-      self.recipes << Recipe.where('protein > fats AND fats > carbs').limit(3)
-      weekly_recipes
-    end
-
-    if fats_diff > 0
-      self.recipes << Recipe.where('fats > protein AND fats > carbs').limit(3)
-      weekly_recipes
-    end
-    {carbs_diff: carbs_diff, protein_diff: protein_diff, fats_diff: fats_diff}
+    difference
   end
     #if none of the values have been met
   #   if fats_diff > 0 && protein_diff > 0 && carbs_diff > 0

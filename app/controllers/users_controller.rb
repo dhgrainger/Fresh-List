@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  before_action :authenticate_user!, only: [:show]
   def show
     @user = current_user
     @preferences = Preference.new
@@ -7,7 +8,8 @@ class UsersController < ApplicationController
   def edit
     @user = current_user
   end
-
+  def index
+  end
   def update
     @user = current_user
       if @user.update(update_params)

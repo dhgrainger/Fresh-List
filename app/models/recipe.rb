@@ -7,9 +7,7 @@ class Recipe < ActiveRecord::Base
   validates :protein, presence: true
   validates :fats, presence: true
   validates :url, presence: true
-  # validates recpie,          uniqueness: {
-  #                               scope: :user_id,
-  #                               message: "That recpie already exists" }
+
   has_many :user_recipes
   has_many :users, through: :user_recipes, source: :user
   class << self
@@ -46,20 +44,20 @@ class Recipe < ActiveRecord::Base
 
           recipe = Recipe.new
 
-          recipe.name = info["attribution"]["text"]
+          recipe.name = yum["recipeName"]
           recipe.image = yum["smallImageUrls"][0]
           recipe.url = 'http://www.yummly.com/recipe/' + yum["id"]
 
       # this next block returns carbs protein and fats in grams
           info["nutritionEstimates"].each do |attribute|
             if attribute["description"] == 'Carbohydrate, by difference'
-              recipe.carbs = attribute["value"]
+              recipe.carbs = attribute["value"].round(0)
             end
             if attribute["description"] == 'Protein'
-              recipe.protein = attribute["value"]
+              recipe.protein = attribute["value"].round(0)
             end
             if attribute["description"] == 'Total lipid (fat)'
-              recipe.fats = attribute["value"]
+              recipe.fats = attribute["value"].round(0)
             end
           end
           recipe.save

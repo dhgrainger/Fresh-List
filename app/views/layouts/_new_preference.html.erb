@@ -1,5 +1,7 @@
-<%= simple_form_for [@user, Preference.new] do |f|%>
-  <%= f.input :name %>
-  <%= f.submit "search" %>
-<%end%>
+
+    <%= simple_form_for [@user, Preference.new] do |f|%>
+      <%= f.input :name, label: "Enter Some food preferences" %>
+      <%= f.submit "search" %>
+    <%end%>
+
 

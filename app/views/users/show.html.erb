@@ -1,45 +1,42 @@
-<h1><%= "Hi, #{@user.username}" %></h1>
-<h2>Your Stats</h2>
-<p><%= "Age: #{@user.age}, Gender: #{@user.gender}, Height: #{@user.height} Inches, Weight: #{@user.weight} LBs" %>
-<h2>Your Activity and Goals</h2>
-<p><%= "#{@user.activity} #{@user.goal}" %></p>
-<p><%= link_to 'Edit', edit_user_path(current_user) %></p>
+<div class = "display" >
 
-<p><%= "Based on your biometric information, activity levels, and goals you should be consuming about #{
-@user.goal_multiplier.round(0)} calories per day, and the following daily macronutrient values:" %></p>
+    <div class = "description panel clearfix">
+      <p class = "user right"><%= "Hi, #{@user.username}! Because you are a #{@user.height} inch, #{@user.weight} pound #{@user.gender}, who is #{@user.activity}, and wants to #{@user.goal}, you should be consuming about #{@user.goal_multiplier.round(0)} calories per day. Remember this is just an estimate to base line your needs off of. If need be you can edit you activity level to raise or reduce your actual needs. Remember an activity level of very high indicates that you are working out everyday at a high level. High activity would correlate to 4 work outs per week, where as active would be once or twice per week. Here are the  Macronutrional Values we are going to try to tailor your diet:" %></p>
+      <p><%= link_to 'Edit', edit_user_path(current_user) %></p>
+      <!--    <p class = "left">
+          <%= render 'stats' %>
+        </p> -->
 
-<table>
-  <tr>
-    <th colspan = 2>Carbohydrates</th><th colspan = 2>Proteins</th><th colspan = 2>Fats</th>
-  </tr>
-  <tr>
-    <th>Calories</th><th>Grams</th><th>Calories</th><th>Grams</th><th>Calories</th><th>Grams</th>
-  </tr>
-  <tr>
-    <td><%= @user.carbcals %></td><td><%= @user.carbgrams %></td><td><%= @user.proteincals %></td><td><%= @user.proteingrams %></td><td><%= @user.fatcals %></td><td><%= @user.fatgrams %></td>
-  </tr>
-</table>
 
-<%= render 'layouts/new_preference' %>
 
-<% if @user.preferences %>
-  <% @user.preferences.uniq.each do |preference| %>
-    <ul>
-      <li><%= preference[:name] %></li>
-    </ul>
-  <% end %>
-<% end %>
+<p class = "values">
+     <%= render 'calories' %>
+</p>
 
-<% if @user.recipes %>
-  <% @user.recipes.uniq.each do |recipe| %>
-    <div class = "grid-4">
-      <h6><a href = <%= recipe[:url] %> ><%= recipe[:name] %></a></h3>
-      <img src = <%= recipe[:image] %> alt='no image'>
-      <li>Fats: <%= recipe[:fats] %> grams</li>
-      <li>Protein: <%= recipe[:protein] %> grams</li>
-      <li>Carbs: <%= recipe[:carbs] %> grams</li>
+
+  <div class = "row">
+    <div class = "large-centered large-8 columns">
+      <%= render 'layouts/new_preference' %>
     </div>
-  <% end %>
-<% end %>
+  </div>
 
+  <% if @user.recipes %>
+
+  <h2>Your Recipes</h2>
+  <div class = "show-recipe">
+    <% @user.recipes.each do |recipe| %>
+      <div class = "recipe grid-3">
+        <h5><a class = "recipe-tag" href = <%= recipe[:url] %> ><%= recipe[:name] %></a></h5>
+        <div><img class = "index" src = <%= recipe[:image] %> alt='no image'></div>
+        <ul class = "info">
+          <li>Fats: <%= recipe[:fats].round(0) %> grams</li>
+          <li>Protein: <%= recipe[:protein].round(0) %> grams</li>
+          <li>Carbs: <%= recipe[:carbs].round(0) %> grams</li>
+        </ul>
+      </div>
+    <% end %>
+  <% end %>
+  </div>
+  </div>
+</div>
 

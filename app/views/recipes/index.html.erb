@@ -1,23 +1,29 @@
-<h2>Recipes</h2>
+<div class = "display" >
+  <div class = "recipe-container panel clearfix">
+    <h2>Recipes: Powered by Yummly</h2>
 
-<div class = "grid-container">
-
-  <% if @recipes %>
-    <%= form_tag update_multiple_recipes_path, method: :patch do %>
-      <% @recipes.each do |preference|%>
-        <% preference.each do |recipe| %>
-          <div class = "grid-4">
-            <h6><a href = <%= recipe[:url] %> ><%= recipe[:name] %></a></h3>
-            <img src = <%= recipe[:image] %> alt='no image'>
-            <li>Fats: <%= recipe[:fats] %> grams</li>
-            <li>Protein: <%= recipe[:protein] %> grams</li>
-            <li>Carbs: <%= recipe[:carbs] %> grams</li>
-            <p class = "recipe"><%= check_box_tag "ids[]", recipe.id %></p>
+    <% if @recipes %>
+      <%= form_tag update_multiple_recipes_path, method: :patch do %>
+        <div class = "body grid-container">
+          <% @recipes.each do |preference|%>
+            <% preference.each do |recipe| %>
+              <div class = "recipe grid-3">
+                <h5><a class = "recipe-tag" href = <%= recipe[:url] %> ><%= recipe[:name] %></a></h5>
+                <div><img class = "index" src = <%= recipe[:image] %> alt='no image'></div>
+                <ul class = "info">
+                  <li>Fats: <%= recipe[:fats].round(0) %> grams</li>
+                  <li>Protein: <%= recipe[:protein].round(0) %> grams</li>
+                  <li>Carbs: <%= recipe[:carbs].round(0) %> grams</li>
+                  <li><%= check_box_tag "ids[]", recipe.id %><%= label_tag("add to cart") %></li>
+                </ul>
+              </div>
+            <% end %>
+          <% end %>
+          <div class = "grid-12">
+            <%= submit_tag "Keep Recipes" %>
           </div>
-        <% end %>
+        </div>
       <% end %>
-      <%= submit_tag "Keep Recipes" %>
     <% end %>
-  <% end %>
+  </div>
 </div>
-

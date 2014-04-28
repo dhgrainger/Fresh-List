@@ -1,27 +1,108 @@
-img {
-  float: left;
-  margin-left: 10%;
+.index {
+  margin: auto;
+  height: 150px;
 }
+
+.recipe-tag {
+  color: #0C0EE8
+}
+
 li {
   list-style: none;
-  margin-left: 20%;
+  display: inline-block;
 }
-p {
-  margin: auto;
+
+.title {
+  color: white;
+  position: absolute;
+  top: 200px;
+  left: 38%;
+  font-size: 500%;
 }
-/* body {
+
+.header {
   background-image: url("fresh.jpg");
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
-} */
-
-.inline {
-  display: inline;
-  background-color: gray;
+  height: 500px;
+  width: auto;
+  vertical-align: middle;
 }
 
+h1, h5 {
+  text-align: center;
+}
+
+
 .recipe {
-  float: right;
+  border: 3px solid #FF0000;
+  margin: 2%;
+  border-radius: 5%;
+  text-align: center;
+  background-color: #E8B20C;
+  height: 310px;
+}
+
+body {
+   background-image: url("fresh.jpg");
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  text-align: center;
+}
+
+form {
+  margin: auto
+}
+
+grid-container {
+  margin-left: 10%;
+  margin-right: 10%;
+}
+
+.display {
+  background-color: white;
+  margin: 5%;
+  text-align: center;
+  padding: 3%;
+}
+
+.stats {
+  margin: 2%;
+  float: left;
+}
+
+table {
+  text-align: center;
+  margin: auto;
+}
+
+.form-page {
+  background-color: white;
+  margin: 0% 20% 20% 20%;
+  text-align: center;
+  padding: 5%;
+}
+
+.user {
+  text-align: left;
+}
+
+.show {
+  text-align: center;
+}
+
+.show-recipe {
+  padding-left: 10%;
+}
+
+.values {
+  margin: auto;
+}
+
+.recipe-container {
+  padding-left: 15%;
 }

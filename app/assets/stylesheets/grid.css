@@ -1,16 +1,11 @@
-.grid-container {
-  padding-left: 10px;
-  padding-right: 10px;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-@media (min-width: 420px) {
+/*
+@media (min-width: 420px) {*/
   .grid-container > [class^="grid-"] {
     float: left;
     min-height: 1px;
     padding-left: 10px;
     padding-right: 10px;
+    margin: auto;
   }
 
   .grid-container > [class^="grid-"]:first-child {
@@ -31,14 +26,12 @@
 
   .grid-3 {
     width: 23.5%;
+    float: left;
   }
 
   .grid-4 {
     width: 32%;
-  }
-
-  .grid-4 {
-    width: 32%;
+    float: left;
   }
 
   .grid-5 {
@@ -71,6 +64,7 @@
 
   .grid-12 {
     width: 100%;
+    text-align: cetner;
   }
 
   .group:after,
@@ -79,5 +73,5 @@
     display: table;
     clear: both;
   }
-}
+/*}*/
 

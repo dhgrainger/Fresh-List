@@ -1,6 +1,7 @@
 FreshList::Application.routes.draw do
 
   devise_for :users
+
   resources :users do
     resources :preferences
     resources :recipes
