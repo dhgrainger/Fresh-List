@@ -1,4 +1,7 @@
 <div class = "form-page">
+ <div class = "panel clearfix">
+  <h2>Welcome to Fresh List!</h2>
+  <p>Fresh List is an app that helps you plan out your meals based on your dietary needs. We use the <a href = "http://en.wikipedia.org/wiki/Basal_metabolic_rate">Mifflin-St Jeor</a> formula to calculate your Basic Metabolic Rate(BMR). We then multiply that by an activity constant. Sedentary activity is a basic work day in an office. Low Activivty means you work out once or twice a week. Active means you work out three to four times a week. Very Active means you are an endurance athlete training hard six times a week. We then factor in your goal of losing or gaining weight. Sign in below to get started.</p>
   <h2>Sign up</h2>
   <div class = "row">
     <div class = "large-centered large-8 columns">
@@ -13,8 +16,8 @@
           <%= f.collection_radio_buttons :gender, [['Male', 'Male'],
           ['Female', 'Female']],:first, :last %>
           <%= f.input :age, collection: 18..80 %>
-          <%= f.input :height, collection: 48..84 %>
-          <%= f.input :weight, collection: 75..300 %>
+          <%= f.input :height, collection: 48..84, label: "Height (Inches)" %>
+          <%= f.input :weight, collection: 75..300, label: "Weight (Pounds)"%>
           <%= f.input :activity, collection: ["Sedentary", "Low Activity", "Active", "Very Active"] %>
           <%= f.input :goal, collection: ["Lose Weight", "Maintain", "Gain Muscle"] %>
         </div>
@@ -22,9 +25,10 @@
         <div class="form-actions">
           <%= f.button :submit, "Calculate" %>
         </div>
-      <% end %>
+        <% end %>
 
-      <%= render "devise/shared/links" %>
+        <%= render "devise/shared/links" %>
+      </div>
     </div>
-    </div>
+  </div>
 </div>

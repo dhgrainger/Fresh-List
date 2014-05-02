@@ -28,7 +28,7 @@ class Recipe < ActiveRecord::Base
         end
 
       # this next block is going to search recipes and return 10 recipes that match our search
-        source = 'http://api.yummly.com/v1/api/recipes?_app_id=d788fb36&_app_key=dee9780de91a8cab61adc0df5a70a3d8&q=' + params + '&requirePictures=true'
+        source = 'http://api.yummly.com/v1/api/recipes?_app_id=76673592&_app_key=17ee3cd3288f06af85bc442278910238q=' + params + '&requirePictures=true'
         resp = Net::HTTP.get_response(URI.parse(source))
         data = resp.body
         yummly = JSON.parse(data)
@@ -37,7 +37,7 @@ class Recipe < ActiveRecord::Base
         yummly["matches"].each do |yum|
 
           yumId = yum["id"]
-          source = 'http://api.yummly.com/v1/api/recipe/' + yumId + '?_app_id=d788fb36&_app_key=dee9780de91a8cab61adc0df5a70a3d8&'
+          source = 'http://api.yummly.com/v1/api/recipe/' + yumId + '?_app_id=76673592&_app_key=17ee3cd3288f06af85bc442278910238&'
           resp = Net::HTTP.get_response(URI.parse(source))
           data = resp.body
           info = JSON.parse(data)

@@ -1,6 +1,6 @@
 <div class = "display" >
-  <div class = "recipe-container panel clearfix">
-    <h2>Recipes: Powered by Yummly</h2>
+  <div class = "show-recipe panel clearfix">
+    <h2 class= "recipe-index">Recipes: Powered by Yummly</h2>
 
     <% if @recipes %>
       <%= form_tag update_multiple_recipes_path, method: :patch do %>
@@ -19,10 +19,11 @@
               </div>
             <% end %>
           <% end %>
-          <div class = "grid-12">
-            <%= submit_tag "Keep Recipes" %>
-          </div>
-        </div>
+      <div class = "row"
+        <div class = "large-centered large-8 columns">
+        <%= submit_tag "Keep Recipes", class: "button submit-recipes" %>
+      </div>
+    </div>
       <% end %>
     <% end %>
   </div>
