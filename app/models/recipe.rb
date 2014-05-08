@@ -10,6 +10,7 @@ class Recipe < ActiveRecord::Base
 
   has_many :user_recipes
   has_many :users, through: :user_recipes, source: :user
+
   class << self
     def search(search)
 
@@ -26,9 +27,9 @@ class Recipe < ActiveRecord::Base
         else
           params = search
         end
-
       # this next block is going to search recipes and return 10 recipes that match our search
-        source = 'http://api.yummly.com/v1/api/recipes?_app_id=76673592&_app_key=17ee3cd3288f06af85bc442278910238q=' + params + '&requirePictures=true'
+
+        source = 'http://api.yummly.com/v1/api/recipes?_app_id=76673592&_app_key=17ee3cd3288f06af85bc442278910238&q=' + params + '&requirePictures=true'
         resp = Net::HTTP.get_response(URI.parse(source))
         data = resp.body
         yummly = JSON.parse(data)

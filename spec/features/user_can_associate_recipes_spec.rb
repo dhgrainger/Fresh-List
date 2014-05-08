@@ -12,7 +12,7 @@ feature "Once recipes have been searched a user can associate them wiht themselv
       sign_in_as(user)
 
 
-      fill_in 'Name', with: 'chicken picatta, eggs, bacon'
+      fill_in 'Enter Some food preferences', with: 'chicken picatta, eggs, bacon'
       click_on('search')
 
       find(:css, "#review_ids_").set(true)

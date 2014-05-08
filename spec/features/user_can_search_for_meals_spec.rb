@@ -12,7 +12,7 @@ feature "User can search on meals based on their preferences", %q{
       sign_in_as(user)
 
 
-      fill_in 'Name', with: 'chicken picatta, eggs, bacon'
+      fill_in 'Enter Some food preferences', with: 'chicken picatta, eggs, bacon'
       click_on('search')
 
       expect(page).to have_content('Chicken Picatta')
