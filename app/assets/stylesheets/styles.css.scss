@@ -1,5 +1,5 @@
 .header {
-  background-image: url("fresh.jpg");
+  background-image: image-url("fresh.jpg");
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -10,7 +10,7 @@
 }
 
 body {
-   background-image: url("fresh.jpg");
+   background-image: image-url("fresh.jpg");
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
