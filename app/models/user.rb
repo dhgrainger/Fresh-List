@@ -80,7 +80,6 @@ class User < ActiveRecord::Base
     ids.each do |x|
       array << Recipe.where('id = x')
     end
-    binding.pry
     array
   end
 
